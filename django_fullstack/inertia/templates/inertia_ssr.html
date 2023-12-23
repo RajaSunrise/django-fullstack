@@ -1,0 +1,3 @@
+{% extends inertia_layout %}
+{% block inertia_head %}{% for tag in head %}{{tag|safe}}{% endfor %}{% endblock inertia_head %}
+{% block inertia %}{{body|safe}}{% endblock inertia %}
