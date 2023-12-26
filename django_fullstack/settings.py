@@ -10,7 +10,6 @@ def initialize() -> None:
 
     MIDDLEWARES = [
         "render.middleware.RenderMiddleware",
-        "django_minify_html.middleware.MinifyMiddleware",
     ]
 
     # For Setting Django Fullstack
