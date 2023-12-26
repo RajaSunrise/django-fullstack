@@ -36,8 +36,6 @@ tests = ["attrs", "zope-interface"]
 tests-no-zope = ["cloudpickle", "hypothesis", "mypy (>=1.1.1)", "pympler", "pytest-mypy-plugins", "pytest-xdist", "pytest (>=4.3.0)"]
 
 [[package]]
-<<<<<<< HEAD
-=======
 name = "certifi"
 version = "2023.11.17"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -54,7 +52,6 @@ optional = false
 python-versions = ">=3.7.0"
 
 [[package]]
->>>>>>> a784bf9 (two commit)
 name = "colorama"
 version = "0.4.6"
 description = "Cross-platform colored terminal text."
@@ -64,7 +61,6 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7
 
 [[package]]
 name = "django"
-<<<<<<< HEAD
 version = "4.2.8"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
@@ -73,16 +69,6 @@ python-versions = ">=3.8"
 
 [package.dependencies]
 asgiref = ">=3.6.0,<4"
-=======
-version = "5.0"
-description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-category = "main"
-optional = false
-python-versions = ">=3.10"
-
-[package.dependencies]
-asgiref = ">=3.7.0"
->>>>>>> a784bf9 (two commit)
 sqlparse = ">=0.3.1"
 tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 
@@ -91,34 +77,12 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-<<<<<<< HEAD
-name = "django-minify-html"
-version = "1.7.1"
-description = "Use minify-html, the extremely fast HTML + JS + CSS minifier, with Django."
-category = "main"
-optional = false
-python-versions = ">=3.8"
-
-[package.dependencies]
-asgiref = ">=3.6"
-Django = ">=3.2"
-minify-html = "*"
-
-[[package]]
-name = "minify-html"
-version = "0.11.1"
-description = "Extremely fast and smart HTML + JS + CSS minifier"
-category = "main"
-optional = false
-python-versions = "*"
-=======
 name = "idna"
 version = "3.6"
 description = "Internationalized Domain Names in Applications (IDNA)"
 category = "main"
 optional = false
 python-versions = ">=3.5"
->>>>>>> a784bf9 (two commit)
 
 [[package]]
 name = "more-itertools"
@@ -178,8 +142,6 @@ checkqa-mypy = ["mypy (==v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-<<<<<<< HEAD
-=======
 name = "requests"
 version = "2.31.0"
 description = "Python HTTP for Humans."
@@ -198,7 +160,6 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
->>>>>>> a784bf9 (two commit)
 name = "sqlparse"
 version = "0.4.4"
 description = "A non-validating SQL parser."
@@ -228,8 +189,6 @@ optional = false
 python-versions = ">=2"
 
 [[package]]
-<<<<<<< HEAD
-=======
 name = "urllib3"
 version = "2.1.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -243,7 +202,6 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
->>>>>>> a784bf9 (two commit)
 name = "wcwidth"
 version = "0.2.12"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -253,43 +211,26 @@ python-versions = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.10"
-<<<<<<< HEAD
-content-hash = "f31bfe73f54014e603a2ee36c89fa6ce9e8deb5d7b9ac4a86c49cddb6114f81e"
-=======
-content-hash = "2183e1064c67f788c69b0f6208645c19e7ec064c8c2696a6a1fdf269e35cabf5"
->>>>>>> a784bf9 (two commit)
+python-versions = ">=3.9, <4"
+content-hash = "822f1f5686b231920b26694ab647c40178a57a3f79123cda154d9eb7582559b4"
 
 [metadata.files]
 asgiref = []
 atomicwrites = []
 attrs = []
-<<<<<<< HEAD
-colorama = []
-django = []
-django-minify-html = []
-minify-html = []
-=======
 certifi = []
 charset-normalizer = []
 colorama = []
 django = []
 idna = []
->>>>>>> a784bf9 (two commit)
 more-itertools = []
 packaging = []
 pluggy = []
 py = []
 pytest = []
-<<<<<<< HEAD
-sqlparse = []
-typing-extensions = []
-tzdata = []
-=======
 requests = []
 sqlparse = []
 typing-extensions = []
 tzdata = []
 urllib3 = []
->>>>>>> a784bf9 (two commit)
 wcwidth = []

@@ -2,7 +2,6 @@ from typing import Dict
 
 Tag = str
 
-
 class TagGenerator:
     @staticmethod
     def script(src: str, attrs: Dict[str, str]) -> Tag:

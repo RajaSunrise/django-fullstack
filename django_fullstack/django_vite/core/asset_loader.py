@@ -50,12 +50,10 @@ class DjangoViteConfig(NamedTuple):
     # Default Vite server path to React RefreshRuntime for @vitejs/plugin-react.
     react_refresh_url: str = "@react-refresh"
 
-
 class ManifestEntry(NamedTuple):
     """
     Represent an entry for a file inside the "manifest.json".
     """
-
     file: str
     src: Optional[str] = None
     isEntry: Optional[bool] = False
@@ -63,7 +61,6 @@ class ManifestEntry(NamedTuple):
     css: Optional[List[str]] = []
     imports: Optional[List[str]] = []
     dynamicImports: Optional[List[str]] = []
-
 
 class ManifestClient:
     def __init__(

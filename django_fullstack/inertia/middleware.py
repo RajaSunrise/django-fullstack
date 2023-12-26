@@ -9,9 +9,6 @@ class InertiaMiddleware:
   
   def __call__(self, request):
     response = self.get_response(request)
-
-    # Inertia requests don't ever render templates, so they skip the typical Django
-    # CSRF path. We'll manually add a CSRF token for every request here.
     get_token(request)
 
     if not self.is_inertia_request(request):

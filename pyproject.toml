@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-fullstack"
-version = "0.3.0"
+version = "0.4.0"
 description = "make your project frontend + django with django-fullstack, it's so easy"
 license = "MIT"
 authors = ["Raja Sunrise <rajasunsrise@gmail.com>"]
@@ -22,9 +22,9 @@ classifiers=[
     ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-Django = "^3.0"
-requests = "^2.31.0"
+python = ">=3.9, <4"
+Django = ">=3.0, <=6.0"
+requests = ">=2.28.2, <2.40.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
