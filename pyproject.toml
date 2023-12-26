@@ -1,14 +1,16 @@
 [tool.poetry]
 name = "django-fullstack"
-version = "0.2.1"
-description = "make your project frontennd + django with django-fullstack, it's so easy"
+version = "0.3.0"
+description = "make your project frontend + django with django-fullstack, it's so easy"
 license = "MIT"
 authors = ["Raja Sunrise <rajasunsrise@gmail.com>"]
 repository = "https://github.com/rajasunrise/django-fullstack"
 packages = [{include = "django_fullstack"}]
 keywords = ["django-fullstack", "react", "vitejs", "vue", "django"]
+readme = "README.md"
 
 classifiers=[
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
@@ -20,9 +22,9 @@ classifiers=[
     ]
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Django = "^4.0"
-django-minify-html = "^1.7.1"
+python = ">=3.9, <3.13"
+Django = ">=3.0, <6.0"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

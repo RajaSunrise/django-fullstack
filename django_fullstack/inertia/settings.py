@@ -4,7 +4,7 @@ from .utils import InertiaJsonEncoder
 __all__ = ['settings']
 
 class InertiaSettings:
-  INERTIA_VERSION = '2.0'
+  INERTIA_VERSION = '1.0'
   INERTIA_JSON_ENCODER = InertiaJsonEncoder
   INERTIA_SSR_URL = 'http://localhost:13714'
   INERTIA_SSR_ENABLED = False

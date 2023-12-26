@@ -2,7 +2,11 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
+<<<<<<< HEAD
 
+=======
+// https://vitejs.dev/config/
+>>>>>>> a784bf9 (two commit)
 export default defineConfig({
   plugins: [
     react({

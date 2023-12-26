@@ -87,6 +87,10 @@ def inertia(component):
     def inner(request, *args, **kwargs):
       props = func(request, *args, **kwargs)
 
+<<<<<<< HEAD
+=======
+      # if something other than a dict is returned, the user probably wants to return a specific response
+>>>>>>> a784bf9 (two commit)
       if not isinstance(props, dict):
         return props
 

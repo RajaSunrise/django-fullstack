@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 
 export default function IndexPage(props: string[]): string {
   return (
@@ -27,3 +28,24 @@ function PackageCard({ framework }: { framework: string }) {
     </div>
   );
 }
+=======
+import { DjangoHeader, DjangoMain, DjangoFooter } from "../Layout/Fullstack";
+
+interface IndexPageProps {
+  // Definisikan props jika ada yang diperlukan
+}
+
+const IndexPage: React.FC<IndexPageProps> = (props) => {
+  const version = "0.4.0";
+
+  return (
+    <div>
+      <DjangoHeader version={version} />
+      <DjangoMain version={version} />
+      <DjangoFooter version={version} />
+    </div>
+  );
+};
+
+export default IndexPage;
+>>>>>>> a784bf9 (two commit)

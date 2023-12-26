@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< HEAD
 @tailwind utilities;
+=======
+@tailwind utilities;
+
+.exhaust__line {
+    animation: thrust 70ms 10000 ease-in-out alternate-reverse;
+  }
+  .smoke {
+    animation: smoke .1s 70000 ease-in-out alternate-reverse;
+  }
+  @keyframes smoke {
+    0% {
+      transform: translate3d(-5px, 0, 0);
+    }
+    100% {
+      transform: translate3d(5px, 0, 0);
+    }
+  }
+  .flame {
+    animation: burnInner2 .1s 70000 ease-in-out alternate-reverse;
+  }
+  @keyframes burnInner2 {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(0, 3px, 0);
+    }
+  }
+  @keyframes thrust {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .5;
+    }
+  }
+>>>>>>> a784bf9 (two commit)

@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 
 export default function IndexPage(props) {
   return (
@@ -24,6 +25,18 @@ function PackageCard({ framework }) {
   return (
     <div className="px-12 py-6 border border-purple-500 text-purple-600 rounded-lg hover:scale-105 transition-all cursor-pointer duration-200">
       <p>{framework}</p>
+=======
+import { DjangoHeader, DjangoMain, DjangoFooter } from "../Layout/Fullstack";
+
+export default function IndexPage(props) {
+  const version = "0.4.0";
+
+  return (
+    <div>
+      <DjangoHeader version={version} />
+      <DjangoMain version={version} />
+      <DjangoFooter version={version} />
+>>>>>>> a784bf9 (two commit)
     </div>
   );
 }

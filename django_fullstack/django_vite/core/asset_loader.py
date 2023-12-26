@@ -8,12 +8,12 @@ from django.apps import apps
 from django.conf import settings
 from django.core.checks import Warning
 
-from django_vite.core.exceptions import (
+from django_fullstack.django_vite.core.exceptions import (
     DjangoViteManifestError,
     DjangoViteAssetNotFoundError,
     DjangoViteConfigNotFoundError,
 )
-from django_vite.core.tag_generator import Tag, TagGenerator
+from django_fullstack.django_vite.core.tag_generator import Tag, TagGenerator
 
 DEFAULT_APP_NAME = "default"
 
@@ -66,13 +66,6 @@ class ManifestEntry(NamedTuple):
 
 
 class ManifestClient:
-    """
-    A client for accessing entries in the compiled vite config's "manifest.json".
-    Only parses manifest.json if dev_mode=False.
-
-    Public Methods:
-        get(path: str) -- return the ManifestEntry for the given path.
-    """
     def __init__(
         self, config: DjangoViteConfig, app_name: str = DEFAULT_APP_NAME
     ) -> None:
@@ -96,14 +89,7 @@ class ManifestClient:
                 pass
 
     def _clean_manifest_path(self) -> Path:
-        """
-        Get the manifest_path from the config.
-        If it wasn't provided, set the default location to
-        STATIC_ROOT / static_url_prefix / "manifest.json".
-
-        Returns:
-            Path -- the path to the vite config's manifest.json
-        """
+        
         initial_manifest_path = self._config.manifest_path
         if not initial_manifest_path:
             return (
@@ -142,19 +128,7 @@ class ManifestClient:
         legacy_polyfills_entry: Optional[ManifestEntry] = None
 
     def _parse_manifest(self) -> ParsedManifestOutput:
-        """
-        Read and parse the Vite manifest file.
-
-        Returns:
-            entries {Dict[str, ManifestEntry]} -- All entries within the manifest
-
-            legacy_polyfills_entry {ManifestEntry} -- The manifest entry for legacy
-                polyfills, if it exists within the manifest.json
-
-        Raises:
-            DjangoViteManifestError: if cannot load the file or JSON in file is
-                malformed.
-        """
+        
         if self.dev_mode:
             return self.ParsedManifestOutput()
 
@@ -186,16 +160,7 @@ class ManifestClient:
             ) from error
 
     def get(self, path: str) -> ManifestEntry:
-        """
-        Gets the manifest_entry for given path.
-
-        Returns:
-            ManifestEntry -- the ManifestEntry for your path
-
-        Raises:
-            DjangoViteAssetNotFoundError: if cannot find the file path in the manifest
-                or if manifest was never parsed due to dev_mode=True.
-        """
+        
         if path not in self._entries:
             raise DjangoViteAssetNotFoundError(
                 f"Cannot find {path} for app={self.app_name} in Vite manifest at "
@@ -206,10 +171,6 @@ class ManifestClient:
 
 
 class DjangoViteAppClient:
-    """
-    An interface for generating assets and urls from one vite app.
-    DjangoViteConfig provides the arguments for the client.
-    """
     def __init__(
         self, config: DjangoViteConfig, app_name: str = DEFAULT_APP_NAME
     ) -> None:
@@ -230,15 +191,7 @@ class DjangoViteAppClient:
         self,
         path: str,
     ) -> str:
-        """
-        Generates an URL to an asset served by the Vite development server.
-
-        Keyword Arguments:
-            path {str} -- Path to the asset.
-
-        Returns:
-            str -- Full URL to the asset.
-        """
+        
         static_url_base = urljoin(settings.STATIC_URL, self.static_url_prefix)
         if not static_url_base.endswith("/"):
             static_url_base += "/"
@@ -250,15 +203,6 @@ class DjangoViteAppClient:
         )
 
     def _get_production_server_url(self, path: str) -> str:
-        """
-        Generates an URL to an asset served during production.
-
-        Keyword Arguments:
-            path {str} -- Path to the asset.
-
-        Returns:
-            str -- Full URL to the asset.
-        """
 
         production_server_url = path
         if prefix := self.static_url_prefix:
@@ -278,27 +222,6 @@ class DjangoViteAppClient:
         path: str,
         **kwargs: Dict[str, str],
     ) -> str:
-        """
-        Generates a <script> tag for this JS/TS asset, a <link> tag for
-        all of its CSS dependencies, and a <link modulepreload>
-        for the js dependencies, as listed in the manifest file
-        (for production only).
-        In development Vite loads all by itself.
-
-        Arguments:
-            path {str} -- Path to a Vite JS/TS asset to include.
-
-        Returns:
-            str -- All tags to import this file in your HTML page.
-
-        Keyword Arguments:
-            **kwargs {Dict[str, str]} -- Adds new attributes to generated
-                script tags.
-
-        Returns:
-            str -- The <script> tag and all <link> tags to import
-                this asset in your page.
-        """
 
         if self.dev_mode:
             url = self._get_dev_server_url(path)
@@ -348,23 +271,7 @@ class DjangoViteAppClient:
         self,
         path: str,
     ) -> str:
-        """
-        Generates a <link modulepreload> tag for this JS/TS asset, a
-        <link preload> tag for all of its CSS dependencies,
-        and a <link modulepreload> for the js dependencies.
-        In development this template tag renders nothing,
-        since files aren't compiled yet.
-
-        Arguments:
-            path {str} -- Path to a Vite JS/TS asset to preload.
-
-        Returns:
-            str -- All tags to preload this file in your HTML page.
-
-        Returns:
-            str -- all <link> tags to preload
-                this asset.
-        """
+        
         if self.dev_mode:
             return ""
 
@@ -435,49 +342,28 @@ class DjangoViteAppClient:
         already_processed: Optional[List[str]] = None,
         tag_generator: Callable[[str], Tag] = TagGenerator.stylesheet,
     ) -> GeneratedCssFilesOutput:
-        """
-        Generates all CSS tags for dependencies of an asset.
-
-        Arguments:
-            path {str} -- Path to an asset in the 'manifest.json'.
-            config_key {str} -- Key of the configuration to use.
-            already_processed {list} -- List of already processed CSS file.
-
-        Returns:
-            tags -- List of CSS tags.
-            already_processed -- List of already processed css paths
-        """
-        already_processed = already_processed or []
+        
+        if already_processed is None:
+            already_processed = []
         tags: List[Tag] = []
         manifest_entry = self.manifest.get(path)
 
         for import_path in manifest_entry.imports:
-            new_tags, new_already_processed = self._generate_css_files_of_asset(
+            new_tags, _ = self._generate_css_files_of_asset(
                 import_path, already_processed, tag_generator
             )
             tags.extend(new_tags)
-            already_processed.extend(new_already_processed)
 
         for css_path in manifest_entry.css:
             if css_path not in already_processed:
                 url = self._get_production_server_url(css_path)
                 tags.append(tag_generator(url))
-
-            already_processed.append(css_path)
+                already_processed.append(css_path)
 
         return self.GeneratedCssFilesOutput(tags, already_processed)
 
     def generate_vite_asset_url(self, path: str) -> str:
-        """
-        Generates only the URL of an asset managed by ViteJS.
-        Warning, this function does not generate URLs for dependant assets.
-
-        Arguments:
-            path {str} -- Path to a Vite asset.
-
-        Returns:
-            str -- The URL of this asset.
-        """
+        
 
         if self.dev_mode:
             return self._get_dev_server_url(path)
@@ -490,23 +376,6 @@ class DjangoViteAppClient:
         self,
         **kwargs: Dict[str, str],
     ) -> str:
-        """
-        Generates a <script> tag to the polyfills
-        generated by '@vitejs/plugin-legacy' if used.
-        This tag must be included at end of the <body> before
-        including other legacy scripts.
-
-        Keyword Arguments:
-            **kwargs {Dict[str, str]} -- Adds new attributes to generated
-                script tags.
-
-        Raises:
-            DjangoViteAssetNotFoundError: If polyfills path not found inside
-                the 'manifest.json'.
-
-        Returns:
-            str -- The script tag to the polyfills.
-        """
 
         if self.dev_mode:
             return ""
@@ -532,26 +401,6 @@ class DjangoViteAppClient:
         path: str,
         **kwargs: Dict[str, str],
     ) -> str:
-        """
-        Generates a <script> tag for legacy assets JS/TS
-        generated by '@vitejs/plugin-legacy'
-        (in production only, in development do nothing).
-
-        Arguments:
-            path {str} -- Path to a Vite asset to include
-                (must contains '-legacy' in its name).
-
-        Keyword Arguments:
-            **kwargs {Dict[str, str]} -- Adds new attributes to generated
-                script tags.
-
-        Raises:
-            DjangoViteAssetNotFoundError: If cannot find the asset path in the
-                manifest (only in production).
-
-        Returns:
-            str -- The script tag of this legacy asset .
-        """
 
         if self.dev_mode:
             return ""
@@ -566,18 +415,6 @@ class DjangoViteAppClient:
         )
 
     def generate_vite_ws_client(self, **kwargs: Dict[str, str]) -> str:
-        """
-        Generates the script tag for the Vite WS client for HMR.
-        Only used in development, in production this method returns
-        an empty string.
-
-        Returns:
-            str -- The script tag or an empty string.
-
-        Keyword Arguments:
-            **kwargs {Dict[str, str]} -- Adds new attributes to generated
-                script tags.
-        """
 
         if not self.dev_mode:
             return ""
@@ -590,15 +427,6 @@ class DjangoViteAppClient:
         )
 
     def generate_vite_react_refresh_url(self) -> str:
-        """
-        Generates the script for the Vite React Refresh for HMR.
-        Only used in development, in production this method returns
-        an empty string.
-
-        Returns:
-            str -- The script or an empty string.
-            config_key {str} -- Key of the configuration to use.
-        """
 
         if not self.dev_mode:
             return ""
@@ -624,7 +452,7 @@ class DjangoViteAssetLoader:
     _instance = None
     _apps: Dict[str, DjangoViteAppClient]
 
-    TEMPLATE = "TEMPLATE"
+    DJANGO_VITE = "DJANGO_VITE"
 
     LEGACY_DJANGO_VITE_SETTINGS: Dict[str, Optional[str]] = {
         "DJANGO_VITE_DEV_MODE": "dev_mode",
@@ -746,16 +574,6 @@ class DjangoViteAssetLoader:
             cls._instance._apps[DEFAULT_APP_NAME] = DjangoViteAppClient(default_config)
 
     def _get_app_client(self, app: str) -> DjangoViteAppClient:
-        """
-        Gets the DjangoViteAppClient for given app.
-
-        Returns:
-            DjangoViteAppClient -- the client for your app
-
-        Raises:
-            DjangoViteConfigNotFoundError: If app was not found in DJANGO_VITE
-                settings.
-        """
 
         if app not in self._apps:
             raise DjangoViteConfigNotFoundError(

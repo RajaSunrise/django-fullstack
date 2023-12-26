@@ -1,4 +1,5 @@
 from inertia import share
+from django.conf import settings
 from django.contrib.messages import get_messages
 
 def inertia_share(get_response):
@@ -17,5 +18,7 @@ def inertia_share(get_response):
             flash=message,
             user=lambda: request.user,  # evaluated lazily at render time
         )
+
         return get_response(request)
+
     return middleware
