@@ -27,7 +27,7 @@ Django = ">=3.0, <=6.0"
 requests = ">=2.28.2, <2.40.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^5.2"
+pytest = "^7.0"
 
 [tool.poetry.scripts]
 django-fullstack = "django_fullstack.scripts.django_fullstack:run"
