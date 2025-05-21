@@ -25,6 +25,8 @@ classifiers=[
 python = "^3.9"
 Django = ">=3.0, <=6.0"
 requests = ">=2.28.2, <2.40.0"
+inertia-django = ">=0.5.0, <0.8.0"
+django-vite = ">=2.1.0, <4.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
