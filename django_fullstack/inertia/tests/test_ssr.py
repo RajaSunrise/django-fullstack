@@ -1,4 +1,4 @@
-from inertia.test import InertiaTestCase, inertia_page, inertia_div
+from django_fullstack.inertia.test import InertiaTestCase, inertia_page, inertia_div
 from django.test import override_settings
 from unittest.mock import patch, Mock
 from requests.exceptions import RequestException
@@ -10,7 +10,7 @@ from requests.exceptions import RequestException
 )
 class SSRTestCase(InertiaTestCase):
 
-  @patch('inertia.http.requests')
+  @patch('django_fullstack.inertia.http.requests')
   def test_it_returns_ssr_calls(self, mock_request):
     mock_response = Mock()
     mock_response.json.return_value = {
@@ -32,14 +32,14 @@ class SSRTestCase(InertiaTestCase):
     self.assertContains(response, 'head--<title>Head works</title>--head')
 
 
-  @patch('inertia.http.requests')
+  @patch('django_fullstack.inertia.http.requests')
   def test_it_uses_inertia_if_inertia_requests_are_made(self, mock_requests):
     response = self.inertia.get('/props/')
 
     mock_requests.post.assert_not_called()
     self.assertJSONResponse(response, inertia_page('props', props={'name': 'Brandon', 'sport': 'Hockey'}))
 
-  @patch('inertia.http.requests')
+  @patch('django_fullstack.inertia.http.requests')
   def test_it_fallsback_on_failure(self, mock_requests):
     def uh_oh(*args, **kwargs):
       raise RequestException()

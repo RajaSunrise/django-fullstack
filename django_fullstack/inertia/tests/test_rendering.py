@@ -1,4 +1,4 @@
-from inertia.test import InertiaTestCase, inertia_div, inertia_page
+from django_fullstack.inertia.test import InertiaTestCase, inertia_div, inertia_page
 
 class FirstLoadTestCase(InertiaTestCase):
   def test_with_props(self):
