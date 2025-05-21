@@ -1,4 +1,4 @@
-from inertia.test import InertiaTestCase
+from django_fullstack.inertia.test import InertiaTestCase
 from django.test import override_settings
 
 class SettingsTestCase(InertiaTestCase):

@@ -1,6 +1,6 @@
-from inertia.tests.testapp.models import User
+from django_fullstack.inertia.tests.testapp.models import User
 from django.test import TestCase
-from inertia.utils import InertiaJsonEncoder
+from django_fullstack.inertia.utils import InertiaJsonEncoder
 from json import dumps
 from datetime import date, datetime
 
