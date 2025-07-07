@@ -20,7 +20,7 @@ jobs:
 
       - name: Cache uv dependencies
         id: cached-uv-dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/uv
           key: uv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/requirements.txt') }}
