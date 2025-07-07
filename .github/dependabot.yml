@@ -11,8 +11,6 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     commit-message:
       prefix: ⬆
-  - package-ecosystem: "npm"
-    directory: "templates"
