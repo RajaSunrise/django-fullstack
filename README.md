@@ -33,9 +33,9 @@ We have several projects that use a django-fullstack, which is very impressive a
 ```
 pip install django-fullstack
 ```
-**or install using poetry**
+**or install using uv**
 ```
-poetry add django-fullstack
+uv pip install django-fullstack
 ```
 
 how to create project django-fullstack

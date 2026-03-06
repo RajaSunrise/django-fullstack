@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [deabian-latest]
+    runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v5

@@ -17,9 +17,9 @@ def initialize() -> None:
         "TEMPLATE_DIR_PATH": Path(BASE_DIR) / "src/",
         "RENDER": {
             "INDEX": "index.html",
-            "URL_SSR": render_settings.RENDER_SSR_URL,
-            "ENABLED_SSR": render_settings.RENDER_SSR_ENABLED,
-            "JSON_ENCODER": render_settings.RENDER_JSON_ENCODER,
+            "URL_SSR": render_settings.INERTIA_SSR_URL,
+            "ENABLED_SSR": render_settings.INERTIA_SSR_ENABLED,
+            "JSON_ENCODER": render_settings.INERTIA_JSON_ENCODER,
         },
         "TEMPLATE": {
             "DEV_MODE": getattr(django_settings, "DEBUG", True), # false to production
@@ -82,9 +82,11 @@ def initialize() -> None:
         [TEMPLATE_DIR, Path(render.__file__).resolve().parent / "templates/"]
     )
 
+    if not hasattr(django_settings, "STATICFILES_DIRS"):
+        django_settings.STATICFILES_DIRS = []
     django_settings.STATICFILES_DIRS.extend(
         [
-            django_settings.DJANGO_PLUGIN_ASSETS_PATH,
+            getattr(django_settings, "DJANGO_VITE_ASSETS_PATH", django_settings.TEMPLATE_ASSETS_PATH),
             TEMPLATE_DIR / "assets",
             TEMPLATE_DIR / "public",
         ]
